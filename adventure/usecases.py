@@ -27,5 +27,18 @@ class StartJourney:
         pass
     
 class StopJourney:
-    def __init__(self):
-        pass
+    def __init__(self, repository: JourneyRepository):
+        self.repository = repository
+        
+    def set_params(self, data: dict) -> StopJourney:
+        self.data = data
+        return self
+        
+    def execute(self) -> None:
+        car = self.repository.get_or_create_car()
+        vehicle = self.repository.create_vehicle(vehicle_type=car, **self.data)
+        journey = self.repository.create_journey(vehicle)
+        updated_journey = self.repository.update_journey(journey)
+        
+        return updated_journey
+
