@@ -19,3 +19,8 @@ class JourneyRepository:
         return models.Journey.objects.create(
             vehicle=vehicle, start=timezone.now().date()
         )
+        
+    def update_journey(self, journey: models.Journey) -> models.Journey:
+        journey_id = journey.id
+        models.Journey.objects.filter(pk=journey_id).update(end=timezone.now().date())
+        return models.Journey.objects.get(pk=journey_id)
