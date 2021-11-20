@@ -41,5 +41,5 @@ class Journey(models.Model):
     def __str__(self) -> str:
         return f"{self.vehicle.name} ({self.start} - {self.end})"
     
-    def is_finished() -> bool:
+    def is_finished(self) -> bool:
         return self.end
