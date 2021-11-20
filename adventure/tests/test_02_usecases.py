@@ -53,9 +53,13 @@ class TestStartJourney:
 
 
 class TestStopJourney:
-    #@pytest.mark.skip  # Remove
     def test_stop(self):
         # TODO: Implement a StopJourney Usecase
         # it takes a started journey as a parameter and sets an "end" value
         # then saves it to the database
-        pass
+        repo = MockJourneyRepository()
+        data = {"name": "Robert", "passengers": 4}
+        usecase = usecases.StopJourney(repo).set_params(data)
+        journey = usecase.execute()
+        
+        assert journey.end < timezone.now().date()
